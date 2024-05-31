@@ -1,0 +1,19 @@
+.inputs {
+  input {
+    border: 1px solid white !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .background-image {
+    background-size: cover;
+    background-position: center;
+    min-height: 300px; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .background-image img.visually-hidden {
+    display: none;
+  }
+}

@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-12 col-md-8 mx-auto col-lg-12 p-0 py-5" [ngClass]="{'mt-5': currentPage}">
+            <div *ngIf="currentPage == 'forgot' || currentPage == 'otp'" class="w-75 mx-auto">
+                <img class="img-fluid mb-4 w-100" src="../../assets/images/Logo.png" alt="Logo">
+            </div>
+            <div class="card auth-card mb-4 p-0 border-0">
+                <img *ngIf="!currentPage" src="../../../../assets/images/Welcome-img.jpg" class="p-0 img-fluid "
+                    alt="Welcome Image">
+                <img *ngIf="currentPage == 'forgot'" src="../../../../assets/images/mobile-img.jpg"
+                    class="p-0 img-fluid" alt="Mobile Image">
+                <!-- <img *ngIf="currentPage == 'otp'" src="../../../../assets/images/otp-img.jpg" class="p-0 img-fluid"
+                    alt="OTP Image"> -->
+                <!--For Login Up-->
+                <div class="card-img-overlay w-100 mx-auto text-center align-content-center">
+                    <img *ngIf="!currentPage" class="img-fluid mb-5 w-75" src="../../assets/images/Logo.png" alt="Logo">
+                    <div *ngIf="currentPage == 'forgot'" class="mb-4 text-center px-5">
+                        <p class="text-primary fw-bold fs-5">Forgot Password</p>
+                        <p class="text-white fs-6">Please enter your mobile number to receive a verification code
+                        </p>
+                    </div>
+
+                    <div *ngIf="currentPage == 'otp'" class="mb-4 text-center px-5">
+                        <p class="text-primary fw-bold fs-5">Enter OTP</p>
+                    </div>
+
+                    <ng-container *ngTemplateOutlet="currentPage=='forgot'?forgotPasswordTemplate:loginTemplate">
+
+                    </ng-container>
+                </div>
+            </div>
+            <div class="px-3">
+                <button *ngIf="!currentPage" class="btn w-100 py-2 btn-primary" routerLink="/Signup">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #loginTemplate>
+    <form (ngSubmit)="login(form)" #form="ngForm">
+        <div class="input-group mb-5" [ngClass]="{'is-invalid': email.invalid && email.touched}">
+            <input required #email="ngModel" [(ngModel)]="formData.email" autocomplete="off" type="text"
+                class="form-control" name="email" id="email" (input)="toggleInputClass($event)">
+            <label for="email" class="form-label text-white">Email</label>
+        </div>
+        <div class="input-group mb-2" [ngClass]="{'is-invalid': password.invalid && password.touched}">
+            <input required #password="ngModel" [(ngModel)]="formData.password" autocomplete="off"
+                [type]="showPass ? 'text' : 'password'" class="form-control border-end-0" name="password" id="password"
+                (input)="toggleInputClass($event)">
+            <label for="password" class="form-label text-white">Password</label>
+            <span class="input-group-text border-start-0">
+                <i *ngIf="!showPass" (click)="showPass = true" class="ri-eye-off-line"></i>
+                <i *ngIf="showPass" (click)="showPass = false" class="ri-eye-line"></i>
+            </span>
+        </div>
+        <p (click)="currentPage = 'forgot'" class="text-end mb-5 text-white">Forgot Password?</p>
+        <button type="submit" class="btn btn-secondary py-2 py-sm-3 w-100">Log In</button>
+    </form>
+</ng-template>
+
+<ng-template #forgotPasswordTemplate>
+    <form (ngSubmit)="forgotPassword(form1)" #form1="ngForm">
+        <div class="input-group mb-5" [ngClass]="{'is-invalid': email.invalid && email.touched}">
+            <input required #email="ngModel" [(ngModel)]="formData.email" autocomplete="off" type="text"
+                class="form-control" name="email" id="email" (input)="toggleInputClass($event)">
+            <label for="email" class="form-label text-white">Email</label>
+        </div>
+        <button type="submit" class="btn btn-secondary py-2 py-sm-3 w-100">Request OTP</button>
+    </form>
+</ng-template>
+
+
+
+
+<!-- <form #form1="ngForm" *ngIf="currentPage == 'otp'">
+                            <div class="inputs d-flex align-items-center gap-3 px-5 mb-5">
+                                <input required #num1="ngModel" name="num1" [(ngModel)]="formData.num1"
+                                    autocomplete="off" type="number" oninput="this.value = this.value.slice(0, 1);"
+                                    class="text-center text-white form-control">
+                                <input required #num2="ngModel" name="num2" [(ngModel)]="formData.num2"
+                                    autocomplete="off" type="number" oninput="this.value = this.value.slice(0, 1);"
+                                    class="text-center text-white form-control">
+                                <input required #num3="ngModel" name="num3" [(ngModel)]="formData.num3"
+                                    autocomplete="off" type="number" oninput="this.value = this.value.slice(0, 1);"
+                                    class="text-center text-white form-control">
+                                <input required #num4="ngModel" name="num4" [(ngModel)]="formData.num4"
+                                    autocomplete="off" type="number" oninput="this.value = this.value.slice(0, 1);"
+                                    class="text-center text-white form-control">
+                            </div>
+                            <button *ngIf="currentPage == 'otp'" type="button"
+                                class="btn btn-secondary py-2 py-sm-3 mb-2 w-100">Request OTP</button>
+                            <p class="text-white">Don’t? receive code? <span
+                                    class="text-primary text-decoration-underline">Resend OTP</span></p>
+                        </form> -->

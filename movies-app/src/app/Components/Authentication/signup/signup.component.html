@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 p-0 py-5">
+            <div class="w-75 mx-auto">
+                <img class="img-fluid mb-5 w-100 " src="../../assets/images/Logo.png" alt="">
+            </div>
+            <div class="card mb-4 p-0 border-0">
+
+                <img src="../../assets/images/sign-upbg.jpg" class="p-0  img-fluid" alt="">
+                <!--For Sign Up-->
+
+                <ng-container *ngTemplateOutlet="signUpTemplate; "></ng-container>
+            </div>
+        </div>
+        <div class="w-75 mx-auto text-center">
+            <p class="text-white mb-4">Or Sign In using</p>
+            <div class="d-flex gap-5 justify-content-center">
+                <img src="../../assets/images/google.png" alt="">
+                <img src="../../assets/images/fb.png" alt="">
+                <img src="../../assets/images/twitter.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #signUpTemplate>
+    <div class="card-img-overlay w-100 mx-auto text-center align-content-center">
+        <form #form="ngForm" (ngSubmit)="signUp(form)" [noValidate]="true">
+            <div class="input-group mb-4" [ngClass]="{'is-invalid': email.invalid && email.touched}">
+                <input required autocomplete="off" #email="ngModel" [(ngModel)]="formData.email" type="email"
+                    class="form-control" name="email" id="email" (input)="toggleInputClass($event)">
+                <label for="email" class="form-label text-white">Email</label>
+            </div>
+            <div class="input-group mb-4" [ngClass]="{'is-invalid': phoneNumber.invalid && phoneNumber.touched}">
+                <input required autocomplete="off" type="number" #phoneNumber="ngModel"
+                    [(ngModel)]="formData.phoneNumber" class="form-control" name="phoneNumber" id="phoneNumber"
+                    (input)="toggleInputClass($event)">
+                <label for="phoneNumber" class="form-label text-white">Mobile Number</label>
+            </div>
+            <div class="input-group mb-4" [ngClass]="{'is-invalid': password.invalid && password.touched}">
+                <input required autocomplete="off" #password="ngModel" [(ngModel)]="formData.password"
+                    [type]="showPass ? 'text' : 'password'" class="form-control border-end-0" name="password"
+                    id="confirm-password" (input)="toggleInputClass($event)">
+                <label for="confirm-password" class="form-label text-white">Password</label>
+                <span class="input-group-text border-start-0">
+                    <i *ngIf="!showPass" (click)="showPass = true" class="ri-eye-off-line"></i>
+                    <i *ngIf="showPass" (click)="showPass = false" class="ri-eye-line"></i>
+                </span>
+            </div>
+            <button type="submit" class="btn btn-secondary py-2 w-100">Sign Up</button>
+        </form>
+    </div>
+</ng-template>
